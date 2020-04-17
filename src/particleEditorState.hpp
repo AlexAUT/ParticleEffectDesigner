@@ -2,6 +2,7 @@
 
 #include "SDL_events.h"
 #include "aw/engine/engine.hpp"
+#include "aw/engine/particleSystem/renderer.hpp"
 #include "aw/engine/particleSystem/spawner.hpp"
 #include "aw/engine/particleSystem/system.hpp"
 #include "aw/engine/state.hpp"
@@ -19,6 +20,12 @@ public:
   void receive(SDL_Event event);
 
 private:
+  void saveSpawner();
+  void loadSpawner();
+
+  void reset();
+
+private:
   aw::Engine& mEngine;
 
   entt::registry mWorld;
@@ -26,4 +33,8 @@ private:
   aw::ParticleSystem mParticleSystem;
 
   entt::entity mSpawner;
+
+  aw::ParticleRenderer mParticleRenderer;
+
+  bool mDropNextFrame{false};
 };

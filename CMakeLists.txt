@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(AW_ENGINE_DIR "../" CACHE PATH "Source directory of the awEngine")
 
 set(USE_SANITIZER "None" CACHE STRING "Santizer option to use")
 set_property(CACHE USE_SANITIZER PROPERTY STRINGS None Address Thread Undefined Leak Memory)
@@ -19,9 +20,6 @@ elseif (USE_SANITIZER STREQUAL "Undefined")
 elseif (USE_SANITIZER STREQUAL "Leak")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=leak")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
-elseif (USE_SANITIZER STREQUAL "Memory")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=memory")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory")
 endif()
 
 project(awParticleEditor)
@@ -40,16 +38,18 @@ include(../cmake/loadDependency.cmake)
 add_executable(${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME} PRIVATE
-  src/gl.cpp
-  src/main.cpp
-  src/particleEditorState.cpp
-  #IMGUI
-  src/imgui/imgui.cpp
-  src/imgui/imgui_draw.cpp
-  src/imgui/imgui_widgets.cpp
-  src/imgui/imgui_impl_sdl.cpp
-  src/imgui/imgui_impl_opengl3.cpp
-)
+    src/gl.cpp
+    src/main.cpp
+    src/particleEditorState.cpp
+    #IMGUI
+    src/imgui/imgui.cpp
+    src/imgui/imgui_draw.cpp
+    src/imgui/imgui_widgets.cpp
+    src/imgui/imgui_impl_sdl.cpp
+    src/imgui/imgui_impl_opengl3.cpp
+    #NativeFileDialog
+    src/fileDialog/tinyfiledialogs.cpp
+    )
 
 find_package(Threads)
 
