@@ -20,7 +20,7 @@ public:
   void receive(SDL_Event event);
 
 private:
-  void saveSpawner();
+  void saveSpawner(bool usedCachedPath);
   void loadSpawner();
 
   void reset();
@@ -37,4 +37,6 @@ private:
   aw::ParticleRenderer mParticleRenderer;
 
   bool mDropNextFrame{false};
+
+  aw::fs::path mCachedSavePath{};
 };
